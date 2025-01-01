@@ -1,0 +1,110 @@
+﻿@model TraCuuThongTinMVC.ViewModels.ReportViewModel
+
+@{
+    ViewData["Title"] = "Report";
+    Layout = "_SchoolList";
+}
+<h1>Báo Cáo Thống Kê</h1>
+
+<!-- Báo cáo các trường được tìm kiếm nhiều nhất -->
+<div class="box-section mb-3">
+    <h2 class="hm-title-page">Các Trường Được Tìm Kiếm Nhiều Nhất</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Tên Trường</th>
+                <th>View</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var school in Model.MostSearchedSchools)
+            {
+                <tr>
+                    <td>@school.SchoolNm</td>
+                    <td>@school.SearchCount</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Báo cáo các chuyên ngành được tìm kiếm nhiều nhất -->
+<div class="box-section mb-3">
+    <h2 class="hm-title-page">Các Chuyên Ngành Được Tìm Kiếm Nhiều Nhất</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Tên Chuyên Ngành</th>
+                <th>View</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var profession in Model.MostSearchedProfessions)
+            {
+                <tr>
+                    <td>
+                        <a href="javascript:void(0);"
+                           onclick="loadSchools('@profession.ProfessionNm')">
+                            @profession.ProfessionNm
+                        </a>
+                    </td>
+                    <td>@profession.SearchCount</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Bảng hiển thị danh sách các trường -->
+    <div id="schoolListContainer" style="display: none; margin-top: 20px;">
+        <h3>Danh Sách Các Trường Với Chuyên Ngành: <span id="selectedProfession"></span></h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Tên Trường</th>
+                    <th>View</th>
+                </tr>
+            </thead>
+            <tbody id="schoolListBody">
+                <!-- Nội dung sẽ được thêm bằng JavaScript -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        function loadSchools(professionNm) {
+            // Gửi yêu cầu AJAX đến server để lấy danh sách các trường
+            $.ajax({
+                url: '@Url.Action("GetSchoolsByProfession", "Report")',
+                type: 'GET',
+                data: { professionNm: professionNm },
+                success: function (data) {
+                    // Hiển thị tên chuyên ngành đã chọn
+                    $('#selectedProfession').text(professionNm);
+
+                    // Xóa nội dung cũ trong bảng
+                    $('#schoolListBody').empty();
+
+                    // Thêm các dòng mới vào bảng
+                    data.forEach(function (school) {
+                        $('#schoolListBody').append(`
+                            <tr>
+                                <td>${school.schoolNm}</td>
+                                <td>${school.searchCount}</td>
+                            </tr>
+                        `);
+                    });
+
+                    // Hiển thị bảng
+                    $('#schoolListContainer').show();
+                },
+                error: function () {
+                    alert('Đã xảy ra lỗi khi tải danh sách các trường.');
+                }
+            });
+        }
+    </script>
+}
+

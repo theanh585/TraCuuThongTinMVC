@@ -1,0 +1,55 @@
+﻿@model TraCuuThongTinMVC.Data.ProfessionDb
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <!-- Tên Ngành Nghề -->
+            <div class="form-group mb-1">
+                <label asp-for="Nm" class="control-label">Tên Ngành Nghề</label>
+                <input asp-for="Nm" class="form-control" />
+                <span asp-validation-for="Nm" class="text-danger"></span>
+            </div>
+
+            <!-- Mã Ngành Nghề (ScId) Ẩn  -->
+            <div class="form-group mb-1">
+                <input asp-for="ScId" class="form-control" type="hidden" />
+                <span asp-validation-for="ScId" class="text-danger"></span>
+            </div>
+
+            <!-- Mô tả Ngành Nghề -->
+            <div class="form-group mb-1">
+                <label asp-for="MoTa" class="control-label">Mô tả Ngành Nghề</label>
+                <textarea asp-for="MoTa" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="MoTa" class="text-danger"></span>
+            </div>
+
+            <!-- Thông Tin Giảng Viên -->
+            <div class="form-group mb-1">
+                <label asp-for="GvCn" class="control-label">Thông Tin Giảng Viên</label>
+                <textarea asp-for="GvCn" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="GvCn" class="text-danger"></span>
+            </div>
+
+            <!-- Nút Submit -->
+            <div class="form-group mb-1" style="text-align: right">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Details" asp-controller="Infsches" asp-route-id="@Model.ScId">Back to Details</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

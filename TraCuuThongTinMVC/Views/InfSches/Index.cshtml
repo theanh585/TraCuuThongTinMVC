@@ -1,0 +1,62 @@
+﻿@model IEnumerable<TraCuuThongTinMVC.Data.InfSch>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Danh sách trường học</h1>
+
+<div class="d-flex justify-content-between mb-3">
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
+    <form method="get" class="d-flex" asp-action="Index">
+        <input type="text" name="searchTerm" class="form-control me-2" placeholder="Tìm kiếm theo tên trường..." value="@ViewData["SearchTerm"]" />
+        <button type="submit" class="btn btn-success">Search</button>
+    </form>
+</div>
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-12 mb-3">
+                <div class="card">
+                    <div class="card-header bg-success text-white d-flex justify-content-between">
+                        <span><strong>Tên Trường:</strong> @Html.DisplayFor(modelItem => item.ScNm)</span>
+                        <div>
+                            <a class="btn btn-sm btn-warning me-2" asp-action="Edit" asp-route-id="@item.ScId">Edit</a>
+                            <a class="btn btn-sm btn-warning me-2" asp-action="Details" asp-route-id="@item.ScId">Detail</a>
+                            <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.ScId">Delete</a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6"><strong>Khu Vực:</strong> @Html.DisplayFor(modelItem => item.ScArea)</div>
+                            <div class="col-6"><strong>Địa Chỉ:</strong> @Html.DisplayFor(modelItem => item.ScAddress)</div>
+                            <div class="col-6"><strong>Địa chỉ cơ sở:</strong> @Html.DisplayFor(modelItem => item.ScAddress1)</div>
+                            <div class="col-6"><strong>Loại Trường:</strong> @Html.DisplayFor(modelItem => item.ScTcd)</div>
+                            <div class="col-6"><strong>TEL:</strong> @Html.DisplayFor(modelItem => item.Tel)</div>
+                            <div class="col-6"><strong>FAX:</strong> @Html.DisplayFor(modelItem => item.Fax)</div>
+                            <div class="col-6"><strong>View:</strong> @Html.DisplayFor(modelItem => item.Count)</div>
+                            <div class="col-6"><strong>Mail:</strong> @Html.DisplayFor(modelItem => item.Mail)</div>
+                            <div class="col-6"><strong>Website:</strong> @Html.DisplayFor(modelItem => item.Website)</div>
+                            <div class="col-6"><strong>Hiệu Trưởng:</strong> @Html.DisplayFor(modelItem => item.HiuTruong)</div>
+                            <div class="col-6"><strong>Hiệu Phó:</strong> @Html.DisplayFor(modelItem => item.HiuPho)</div>
+                            <div class="col-6"><strong>Người Chịu Trách Nhiệm PL:</strong> @Html.DisplayFor(modelItem => item.NguoiChiuTrachNhiemPhapLuat)</div>
+                            <div class="col-6">
+                                <strong>Hình Ảnh:</strong>
+                                @if (item.Image != null && item.Image.Length > 0)
+                                {
+                                    <img src="data:image/png;base64,@Convert.ToBase64String(item.Image)" alt="Image" class="img-thumbnail" width="100" height="100" />
+                                }
+                                else
+                                {
+                                    <p>Không có hình ảnh</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,23 @@
+﻿@model TraCuuThongTinMVC.ViewModels.ProfessionDetail
+
+@{
+    ViewData["Title"] = "ProfessionDetail";
+}
+
+<div class="container my-5">
+    <!-- Tiêu đề chính -->
+    <h1 class="text-center text-primary">Thông tin ngành nghề</h1>
+
+    <!-- Đoạn văn bản thông tin -->
+    <div class="mt-4">
+        <p>
+            @Model.Mota
+        </p>
+    </div>
+    <h1 class="text-center text-primary">Thông giảng viên</h1>
+    <div class="mt-4">
+        <p>
+            @Model.GvCn
+        </p>
+    </div>
+</div>

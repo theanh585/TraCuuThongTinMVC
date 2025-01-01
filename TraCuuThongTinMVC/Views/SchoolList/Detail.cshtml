@@ -1,0 +1,112 @@
+﻿@model TraCuuThongTinMVC.ViewModels.SchoolDetail
+
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<div class="hm-section-wrapper admissions-section">
+    <div class="panel-body">
+        <!-- Box Section 1 -->
+        <div class="box-section mb-3 text-center">
+            <h2 class="hm-title-page uk-flex uk-flex-space-between">
+                @if (@Model.Image != null)
+                {
+                    <img src="data:image/png;base64,@Convert.ToBase64String(Model.Image)" alt="Image" class="img-thumbnail" width="200" height="200" />
+                }
+                <span>@Model.ScNm</span>
+            </h2>
+
+        </div>
+
+        <!-- Box Section 2 -->
+        <div class="box-section mb-3">
+            <div class="d-flex justify-content-between">
+                <h2 class="hm-title-page">Thông tin chi tiết về trường</h2>
+                <!-- Button to download information -->
+                <form method="post" asp-action="DownloadInformation" asp-controller="SchoolList">
+                    <input type="hidden" name="schoolId" value="@Model.ScId" />
+                    <button type="submit" class="btn btn-primary">Download</button>
+                </form>
+            </div>
+            <div class="hm-panel-body">
+                <div class="table-container" style="max-height: 300px; overflow-y: auto;">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Tiêu đề</th>
+                                <th>Thông Tin</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Mã trường</td>
+                                <td>@Model.ScId</td>
+                            </tr>
+                            <tr>
+                                <td>Địa chỉ chính</td>
+                                <td>@Model.ScAddress</td>
+                            </tr>
+                            <tr>
+                                <td>Địa chỉ các cơ sở</td>
+                                <td>@Model.ScAddress1</td>
+                            </tr>
+                            <tr>
+                                <td>Tel</td>
+                                <td>@Model.Tel</td>
+                            </tr>
+                            <tr>
+                                <td>Fax</td>
+                                <td>@Model.Fax</td>
+                            </tr>
+                            <tr>
+                                <td>Mail</td>
+                                <td>@Model.Mail</td>
+                            </tr>
+                            <tr>
+                                <td>Website</td>
+                                <td>@Model.Website</td>
+                            </tr>
+                            <tr>
+                                <td>Hiệu Trưởng</td>
+                                <td>@Model.HieuT</td>
+                            </tr>
+                            <tr>
+                                <td>Hiệu Phó</td>
+                                <td>@Model.HieuP</td>
+                            </tr>
+                            <tr>
+                                <td>Đại diện pháp luật</td>
+                                <td>@Model.NgChTrN</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Box Section 3 -->
+        <div class="box-section mb-3">
+            <h2 class="hm-title-page">Các ngành đào tạo</h2>
+            <div class="hm-panel-body">
+                <div class="table-container" style="max-height: 300px; overflow-y: auto;">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Chuyên Ngành</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.profList)
+                            {
+                                <tr>
+                                    <td><a asp-action="ProfessionDetail" asp-controller="SchoolList" asp-route-id="@item.Cd">@item.Nm</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

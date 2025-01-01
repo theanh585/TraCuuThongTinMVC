@@ -1,0 +1,202 @@
+﻿@model TraCuuThongTinMVC.Data.InfSch
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row" style="margin-bottom: 5px;">
+                <label asp-for="ScNm" class="col-sm-2 col-form-label">Tên Trường</label>
+                <div class="col-sm-10">
+                    <input asp-for="ScNm" class="form-control" />
+                    <span asp-validation-for="ScNm" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row" style="margin-bottom: 5px;">
+                <label asp-for="ScArea" class="col-sm-2 col-form-label">Khu vực</label>
+                <div class="col-sm-10">
+                    <select asp-for="ScArea" class="form-control">
+                        <option value="1">An Giang</option>
+                        <option value="2">Bà Rịa - Vũng Tàu</option>
+                        <option value="3">Bắc Giang</option>
+                        <option value="4">Bắc Kạn</option>
+                        <option value="5">Bạc Liêu</option>
+                        <option value="6">Bắc Ninh</option>
+                        <option value="7">Bến Tre</option>
+                        <option value="8">Bình Định</option>
+                        <option value="9">Bình Dương</option>
+                        <option value="10">Bình Phước</option>
+                        <option value="11">Bình Thuận</option>
+                        <option value="12">Cà Mau</option>
+                        <option value="13">Cao Bằng</option>
+                        <option value="14">Đắk Lắk</option>
+                        <option value="15">Đắk Nông</option>
+                        <option value="16">Điện Biên</option>
+                        <option value="17">Đồng Nai</option>
+                        <option value="18">Đồng Tháp</option>
+                        <option value="20">Gia Lai</option>
+                        <option value="21">Hà Giang</option>
+                        <option value="22">Hà Nam</option>
+                        <option value="23">Hà Tĩnh</option>
+                        <option value="24">Hải Dương</option>
+                        <option value="26">Hậu Giang</option>
+                        <option value="27">Hòa Bình</option>
+                        <option value="28">Hưng Yên</option>
+                        <option value="29">Khánh Hòa</option>
+                        <option value="30">Kiên Giang</option>
+                        <option value="31">Kon Tum</option>
+                        <option value="32">Lai Châu</option>
+                        <option value="33">Lâm Đồng</option>
+                        <option value="34">Lạng Sơn</option>
+                        <option value="35">Lào Cai</option>
+                        <option value="36">Long An</option>
+                        <option value="37">Nam Định</option>
+                        <option value="38">Nghệ An</option>
+                        <option value="39">Ninh Bình</option>
+                        <option value="40">Ninh Thuận</option>
+                        <option value="41">Phú Thọ</option>
+                        <option value="42">Quảng Bình</option>
+                        <option value="43">Quảng Nam</option>
+                        <option value="44">Quảng Ngãi</option>
+                        <option value="45">Quảng Ninh</option>
+                        <option value="46">Quảng Trị</option>
+                        <option value="47">Sóc Trăng</option>
+                        <option value="48">Sơn La</option>
+                        <option value="49">Tây Ninh</option>
+                        <option value="50">Thái Bình</option>
+                        <option value="51">Thái Nguyên</option>
+                        <option value="52">Thanh Hóa</option>
+                        <option value="53">Thừa Thiên Huế</option>
+                        <option value="54">Tiền Giang</option>
+                        <option value="55">Trà Vinh</option>
+                        <option value="56">Tuyên Quang</option>
+                        <option value="57">Vĩnh Long</option>
+                        <option value="58">Vĩnh Phúc</option>
+                        <option value="59">Yên Bái</option>
+                        <option value="60">Phú Yên</option>
+                        <option value="61">Cần Thơ</option>
+                        <option value="62">Đà Nẵng</option>
+                        <option value="63">Hải Phòng</option>
+                        <option value="64">Hà Nội</option>
+                        <option value="65">TP HCM</option>
+                    </select>
+                    <span asp-validation-for="ScArea" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row" style="margin-bottom: 5px;">
+                <label asp-for="ScAddress" class="col-sm-2 col-form-label">Địa chỉ chính</label>
+                <div class="col-sm-10">
+                    <input asp-for="ScAddress" class="form-control" />
+                    <span asp-validation-for="ScAddress" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row" style="margin-bottom: 5px;">
+                <label asp-for="ScAddress1" class="col-sm-2 col-form-label">Địa chỉ cơ sở</label>
+                <div class="col-sm-10">
+                    <input asp-for="ScAddress1" class="form-control" />
+                    <span asp-validation-for="ScAddress1" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row" style="margin-bottom: 5px;">
+                <label asp-for="ScTcd" class="col-sm-2 col-form-label">Loại trường</label>
+                <div class="col-sm-10">
+                    <select asp-for="ScTcd" class="form-control">
+                        <option value="DH">Đại Học</option>
+                        <option value="65">Cao Đẳng</option>
+                    </select>
+                    <span asp-validation-for="ScTcd" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row" style="margin-bottom: 5px;">
+                <label asp-for="Tel" class="col-sm-2 col-form-label">TEL</label>
+                <div class="col-sm-10">
+                    <input asp-for="Tel" class="form-control" />
+                    <span asp-validation-for="Tel" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row" style="margin-bottom: 5px;">
+                <label asp-for="Fax" class="col-sm-2 col-form-label">FAX</label>
+                <div class="col-sm-10">
+                    <input asp-for="Fax" class="form-control" />
+                    <span asp-validation-for="Fax" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row" style="margin-bottom: 5px;">
+                <label asp-for="Mail" class="col-sm-2 col-form-label">Mail</label>
+                <div class="col-sm-10">
+                    <input asp-for="Mail" class="form-control" />
+                    <span asp-validation-for="Mail" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row" style="margin-bottom: 5px;">
+                <label asp-for="Website" class="col-sm-2 col-form-label">Website</label>
+                <div class="col-sm-10">
+                    <input asp-for="Website" class="form-control" />
+                    <span asp-validation-for="Website" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row" style="margin-bottom: 5px;">
+                <label asp-for="HiuTruong" class="col-sm-2 col-form-label">Hiệu Trưởng</label>
+                <div class="col-sm-10">
+                    <input asp-for="HiuTruong" class="form-control" />
+                    <span asp-validation-for="HiuTruong" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row" style="margin-bottom: 5px;">
+                <label asp-for="HiuPho" class="col-sm-2 col-form-label">Hiệu Phó</label>
+                <div class="col-sm-10">
+                    <input asp-for="HiuPho" class="form-control" />
+                    <span asp-validation-for="HiuPho" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row style="margin-bottom: 5px;">
+                <label asp-for="NguoiChiuTrachNhiemPhapLuat" class="col-sm-2 col-form-label">ĐD pháp luật</label>
+                <div class="col-sm-10">
+                    <input asp-for="NguoiChiuTrachNhiemPhapLuat" class="form-control" />
+                    <span asp-validation-for="NguoiChiuTrachNhiemPhapLuat" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row" style="margin-bottom: 5px;">
+                <label asp-for="Image" class="col-sm-2 col-form-label">Hình ảnh</label>
+                <div class="col-sm-10">
+                    <input type="file" name="imageFile" class="form-control" />
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row d-flex justify-content-end" style="margin-bottom: 5px; text-align: right">
+                <div class="col-sm-10 offset-sm-2">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

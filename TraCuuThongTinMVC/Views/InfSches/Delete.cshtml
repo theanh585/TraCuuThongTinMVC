@@ -1,0 +1,98 @@
+﻿@model TraCuuThongTinMVC.Data.InfSch
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Tên Trường
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ScNm)
+        </dd>
+        <dt class = "col-sm-2">
+            Khu Vực
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ScArea)
+        </dd>
+        <dt class = "col-sm-2">
+            Địa chỉ chính
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ScAddress)
+        </dd>
+        <dt class = "col-sm-2">
+            Địa chỉ cơ sở
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ScAddress1)
+        </dd>
+        <dt class = "col-sm-2">
+            Loại
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ScTcd)
+        </dd>
+        <dt class = "col-sm-2">
+            TEL
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Tel)
+        </dd>
+        <dt class = "col-sm-2">
+            FAX
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Fax)
+        </dd>
+        <dt class = "col-sm-2">
+            View
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Count)
+        </dd>
+        <dt class = "col-sm-2">
+            Mail
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Mail)
+        </dd>
+        <dt class = "col-sm-2">
+            Website
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Website)
+        </dd>
+        <dt class = "col-sm-2">
+            Hiệu Trưởng
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HiuTruong)
+        </dd>
+        <dt class = "col-sm-2">
+            Hiệu Phó
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HiuPho)
+        </dd>
+        <dt class = "col-sm-2">
+            Đại diện pháp luật
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NguoiChiuTrachNhiemPhapLuat)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ScId" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
