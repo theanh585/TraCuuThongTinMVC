@@ -1,0 +1,77 @@
+﻿namespace TraCuuThongTinMVC.ViewModels
+{
+    public class CityHelper
+    {
+        public static readonly Dictionary<string, string> CityDictionary = new()
+    {
+         {"1", "An Giang"},
+                {"2", "Bà Rịa - Vũng Tàu"},
+                {"3", "Bắc Giang"},
+                {"4", "Bắc Kạn"},
+                {"5", "Bạc Liêu"},
+                {"6", "Bắc Ninh"},
+                {"7", "Bến Tre"},
+                {"8", "Bình Định"},
+                {"9", "Bình Dương"},
+                {"10", "Bình Phước"},
+                {"11", "Bình Thuận"},
+                {"12", "Cà Mau"},
+                {"13", "Cao Bằng"},
+                {"14", "Đắk Lắk"},
+                {"15", "Đắk Nông"},
+                {"16", "Điện Biên"},
+                {"17", "Đồng Nai"},
+                {"18", "Đồng Tháp"},
+                {"20", "Gia Lai"},
+                {"21", "Hà Giang"},
+                {"22", "Hà Nam"},
+                {"23", "Hà Tĩnh"},
+                {"24", "Hải Dương"},
+                {"26", "Hậu Giang"},
+                {"27", "Hòa Bình"},
+                {"28", "Hưng Yên"},
+                {"29", "Khánh Hòa"},
+                {"30", "Kiên Giang"},
+                {"31", "Kon Tum"},
+                {"32", "Lai Châu"},
+                {"33", "Lâm Đồng"},
+                {"34", "Lạng Sơn"},
+                {"35", "Lào Cai"},
+                {"36", "Long An"},
+                {"37", "Nam Định"},
+                {"38", "Nghệ An"},
+                {"39", "Ninh Bình"},
+                {"40", "Ninh Thuận"},
+                {"41", "Phú Thọ"},
+                {"42", "Quảng Bình"},
+                {"43", "Quảng Nam"},
+                {"44", "Quảng Ngãi"},
+                {"45", "Quảng Ninh"},
+                {"46", "Quảng Trị"},
+                {"47", "Sóc Trăng"},
+                {"48", "Sơn La"},
+                {"49", "Tây Ninh"},
+                {"50", "Thái Bình"},
+                {"51", "Thái Nguyên"},
+                {"52", "Thanh Hóa"},
+                {"53", "Thừa Thiên Huế"},
+                {"54", "Tiền Giang"},
+                {"55", "Trà Vinh"},
+                {"56", "Tuyên Quang"},
+                {"57", "Vĩnh Long"},
+                {"58", "Vĩnh Phúc"},
+                {"59", "Yên Bái"},
+                {"60", "Phú Yên"},
+                {"61", "Cần Thơ"},
+                {"62", "Đà Nẵng"},
+                {"63", "Hải Phòng"},
+                {"64", "Hà Nội"},
+                {"65", "TP HCM"},
+        };
+
+        public static string GetCityName(string scArea)
+        {
+            return CityDictionary.ContainsKey(scArea) ? CityDictionary[scArea] : "Không xác định";
+        }
+    }
+}

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TraCuuThongTinMVC.Data;
 using TraCuuThongTinMVC.ViewModels;
+using System.Data;
 
 public class ReportController : Controller
 {

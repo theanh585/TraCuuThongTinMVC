@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.EntityFrameworkCore;
 using TraCuuThongTinMVC.Data;
 
@@ -15,9 +17,13 @@ builder.Services.AddDistributedMemoryCache(); // Dùng bộ nhớ để lưu tr�
 builder.Services.AddSession(); // Kích hoạt dịch vụ session
 
 builder.Services.AddAuthentication("CookieAuth")
-    .AddCookie("CookieAuth", config =>
+    .AddCookie("CookieAuth", options =>
     {
-        config.LoginPath = "/Admin/Login"; // Đường dẫn đến trang đăng nhập
+        options.LoginPath = "/Admin/Login";
+        options.AccessDeniedPath = "/Admin/AccessDenied";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(30); // Cookie hết hạn sau 30 phút
+        options.SlidingExpiration = true; // Cập nhật lại thời gian hết hạn mỗi lần người dùng hoạt động
+        options.Cookie.HttpOnly = true; // Tăng bảo mật
     });
 
 builder.Services.AddAuthorization();
@@ -27,6 +33,7 @@ builder.Services.Configure<FormOptions>(options =>
     options.ValueLengthLimit = int.MaxValue;  // Kích thước tối đa của mỗi giá trị trong form
     options.MultipartBodyLengthLimit = int.MaxValue;  // Kích thước tối đa của body form (bao gồm các tệp tải lên)
 });
+builder.Services.AddSingleton<IViewEngine, RazorViewEngine>();
 var app = builder.Build();
 
 app.UseHttpsRedirection();

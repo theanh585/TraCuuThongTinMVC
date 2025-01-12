@@ -1,0 +1,107 @@
+﻿@model TraCuuThongTinMVC.ViewModels.SchoolDetail
+
+<html>
+<body>
+    <div id="reportBody">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                font-size: 12px;
+            }
+
+            h1, h2 {
+                text-align: center;
+            }
+
+            .table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+
+                .table th, .table td {
+                    border: 1px solid #ddd;
+                    padding: 8px;
+                    text-align: left;
+                }
+
+                .table th {
+                    background-color: #f2f2f2;
+                }
+        </style>
+        <h1>@Model.ScNm - Chi Tiết Trường</h1>
+
+        <table class="table">
+            <tr>
+                <th>Tiêu đề</th>
+                <th>Thông Tin</th>
+            </tr>
+            <tr>
+                <td>Khu vực</td>
+                <td>@Model.ScArea</td>
+            </tr>
+            <tr>
+                <td>Địa chỉ chính</td>
+                <td>@Model.ScAddress</td>
+            </tr>
+            <tr>
+                <td>Địa chỉ các cơ sở</td>
+                <td>@Model.ScAddress1</td>
+            </tr>
+            <tr>
+                <td>Tel</td>
+                <td>@Model.Tel</td>
+            </tr>
+            <tr>
+                <td>Fax</td>
+                <td>@Model.Fax</td>
+            </tr>
+            <tr>
+                <td>Mail</td>
+                <td>@Model.Mail</td>
+            </tr>
+            <tr>
+                <td>Website</td>
+                <td>@Model.Website</td>
+            </tr>
+            <tr>
+                <td>Hiệu Trưởng</td>
+                <td>@Model.HieuT</td>
+            </tr>
+            <tr>
+                <td>Hiệu Phó</td>
+                <td>@Model.HieuP</td>
+            </tr>
+            <tr>
+                <td>Đại diện pháp luật</td>
+                <td>@Model.NgChTrN</td>
+            </tr>
+        </table>
+
+        <h2>Các chuyên ngành</h2>
+        <table class="table table-bordered">
+            <thead class="table-header">
+                <tr>
+                    <th>Chuyên Ngành</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.profList != null && Model.profList.Any())
+                {
+                    @foreach (var profession in Model.profList)
+                    {
+
+                        <tr>
+                            <td>@profession.Nm</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <p>Không có chuyên ngành nào.</p>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

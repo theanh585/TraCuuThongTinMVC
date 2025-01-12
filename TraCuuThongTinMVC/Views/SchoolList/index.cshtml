@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<TraCuuThongTinMVC.ViewModels.SchoolList>
 
+
 @{
 	ViewData["Title"] = "Index";
     Layout = "_SchoolList";
@@ -7,135 +8,167 @@
     <div class="container-fluid fruite py-5">
         <div class="container py-5">
             <div class="row g-4">
-                <div class="col-lg-12">
-                    <div class="row g-4">
-                        <div class="col-xl-3"></div>
-                        <div class="col-6">
-                            
-                        </div>
-                        <div class="col-xl-3"></div>
-                    </div>
-                    <h4>Danh sách Trường học</h4>
-                    <div class="row g-4">
-                        <!-- Danh sách Trường học -->
-                        <div class="col-lg-8">
-                            <div class="row g-4">
-                                <div class="col-lg-12">
-                                    <div class="mb-3">
-                                        <ul class="list-unstyled fruite-categorie" style="max-height: 400px; overflow-y: auto;">
-                                        @foreach (var item in Model){
-                                            <li>
-                                                <div class="d-flex justify-content-between fruite-name fs-4">
-                                                    <a asp-action="Detail" asp-controller="SchoolList" asp-route-id="@item.scId">
-                                                        <i class="fas bi bi-award-fill me-2"></i>@item.scNm
+            <div class="col-lg-12">
+                <div class="row g-3">
+                    <div class="col-xl-3"></div>
+                    <div class="col-6"></div>
+                    <div class="col-xl-3"></div>
+                </div>
+                <div class="row g-6">
+                    <!-- Danh sách Trường học -->
+                    <div class="col-lg-8">
+                        <div class="row g-4">
+                            <div class="col-lg-12">
+                                <div class="shadow-box p-4 mb-4">
+                                    <h4>Danh sách Trường học</h4>
+                                    <ul class="list-unstyled fruite-categorie">
+                                        @foreach (var item in Model)
+                                        {
+                                            <li class="mb-3">
+                                                <div class="d-flex align-items-center">
+                                                    <!-- Hiển thị hình ảnh -->
+                                                    <img src="data:image/jpeg;base64,@item.Image" style="width: 80px; height: 80px; object-fit: cover; margin-right: 15px;">
+
+                                                    <div>
+                                                        <a asp-action="Detail" asp-controller="SchoolList" asp-route-id="@item.scId" class="fs-5 fw-bold">
+                                                            <i class="fas bi bi-award-fill me-2"></i>@item.scNm
                                                         </a>
+                                                        <div class="text-muted fs-6">Khu vực: @item.ScArea</div>
+                                                        <div class="text-muted fs-6">View: @item.View</div>
+                                                    </div>
                                                 </div>
                                             </li>
                                         }
+                                    </ul>
+
+                                    <!-- Thêm phân trang -->
+                                    <div class="mt-4">
+                                        <ul class="pagination justify-content-center d-flex">
+                                            @if (ViewData["CurrentPage"] != null && (int)ViewData["CurrentPage"] > 1)
+                                            {
+                                                <li class="page-item">
+                                                    <a class="page-link" href="@Url.Action("Index", new { page = (int)ViewData["CurrentPage"] - 1, ScNm = ViewData["ScNm"], Nm = ViewData["Nm"], ScTcd = ViewData["ScTcd"], ScArea = ViewData["ScArea"] })">«</a>
+                                                </li>
+                                            }
+
+                                            @for (var i = 1; i <= (int)(ViewData["TotalPages"] ?? 1); i++)
+                                            {
+                                                <li class="page-item @(i == (int)(ViewData["CurrentPage"] ?? 1) ? "active" : "")">
+                                                    <a class="page-link" href="@Url.Action("Index", new { page = i, ScNm = ViewData["ScNm"], Nm = ViewData["Nm"], ScTcd = ViewData["ScTcd"], ScArea = ViewData["ScArea"] })">@i</a>
+                                                </li>
+                                            }
+
+                                            @if (ViewData["CurrentPage"] != null && (int)ViewData["CurrentPage"] < (int)(ViewData["TotalPages"] ?? 1))
+                                            {
+                                                <li class="page-item">
+                                                    <a class="page-link" href="@Url.Action("Index", new { page = (int)ViewData["CurrentPage"] + 1, ScNm = ViewData["ScNm"], Nm = ViewData["Nm"], ScTcd = ViewData["ScTcd"], ScArea = ViewData["ScArea"] })">»</a>
+                                                </li>
+                                            }
                                         </ul>
                                     </div>
+
+
+
                                 </div>
-                            </div>
-                        </div>
-
-                        <!-- Phần tìm kiếm -->
-
-                        <div class="col-lg-4">
-                            <div class="list-filter">
-                                <p class="mb-1"><strong>Tìm kiếm theo</strong></p>
-                            <form name="IndexForm" method="get" asp-action="Index" asp-controller="SchoolList">
-                                    <div class="input-group mx-auto d-flex mb-1" >
-                                    <input name="ScNm" type="search" class="form-control p-3" placeholder="-- Tên trường --" aria-describedby="search-icon-1" value="@ViewData["ScNm"]">
-                                    </div>
-
-                                    <div class="input-group mx-auto d-flex mb-1" >
-                                    <input name="Nm" type="search" class="form-control p-3" placeholder="-- Ngành nghề đào tạo --" aria-describedby="search-icon-1" value="@ViewData["Nm"]">
-                                    </div>
-
-                                    <div class="arrow_select mb-1">
-                                    <select class="form-select" name="ScTcd" autocomplete="off" id="ScTcd">
-                                            <option value="">-- Loại trường --</option>
-                                             <option value="DH" >Đại học</option>
-                                             <option value="CD" >Cao đẳng</option>
-                                        </select>
-                                    </div>
-                                    <div class="arrow_select mb-1">
-                                    <select class="form-select" name="ScArea" autocomplete="off" id="ScArea">
-                                            <option value="">-- Tỉnh/Thành phố --</option>
-                                            <option value="1">An Giang</option>
-                                            <option value="2">Bà Rịa - Vũng Tàu</option>
-                                            <option value="3">Bắc Giang</option>
-                                            <option value="4">Bắc Kạn</option>
-                                            <option value="5">Bạc Liêu</option>
-                                            <option value="6">Bắc Ninh</option>
-                                            <option value="7">Bến Tre</option>
-                                            <option value="8">Bình Định</option>
-                                            <option value="9">Bình Dương</option>
-                                            <option value="10">Bình Phước</option>
-                                            <option value="11">Bình Thuận</option>
-                                            <option value="12">Cà Mau</option>
-                                            <option value="13">Cao Bằng</option>
-                                            <option value="14">Đắk Lắk</option>
-                                            <option value="15">Đắk Nông</option>
-                                            <option value="16">Điện Biên</option>
-                                            <option value="17">Đồng Nai</option>
-                                            <option value="18">Đồng Tháp</option>
-                                            <option value="20">Gia Lai</option>
-                                            <option value="21">Hà Giang</option>
-                                            <option value="22">Hà Nam</option>
-                                            <option value="23">Hà Tĩnh</option>
-                                            <option value="24">Hải Dương</option>
-                                            <option value="26">Hậu Giang</option>
-                                            <option value="27">Hòa Bình</option>
-                                            <option value="28">Hưng Yên</option>
-                                            <option value="29">Khánh Hòa</option>
-                                            <option value="30">Kiên Giang</option>
-                                            <option value="31">Kon Tum</option>
-                                            <option value="32">Lai Châu</option>
-                                            <option value="33">Lâm Đồng</option>
-                                            <option value="34">Lạng Sơn</option>
-                                            <option value="35">Lào Cai</option>
-                                            <option value="36">Long An</option>
-                                            <option value="37">Nam Định</option>
-                                            <option value="38">Nghệ An</option>
-                                            <option value="39">Ninh Bình</option>
-                                            <option value="40">Ninh Thuận</option>
-                                            <option value="41">Phú Thọ</option>
-                                            <option value="42">Quảng Bình</option>
-                                            <option value="43">Quảng Nam</option>
-                                            <option value="44">Quảng Ngãi</option>
-                                            <option value="45">Quảng Ninh</option>
-                                            <option value="46">Quảng Trị</option>
-                                            <option value="47">Sóc Trăng</option>
-                                            <option value="48">Sơn La</option>
-                                            <option value="49">Tây Ninh</option>
-                                            <option value="50">Thái Bình</option>
-                                            <option value="51">Thái Nguyên</option>
-                                            <option value="52">Thanh Hóa</option>
-                                            <option value="53">Thừa Thiên Huế</option>
-                                            <option value="54">Tiền Giang</option>
-                                            <option value="55">Trà Vinh</option>
-                                            <option value="56">Tuyên Quang</option>
-                                            <option value="57">Vĩnh Long</option>
-                                            <option value="58">Vĩnh Phúc</option>
-                                            <option value="59">Yên Bái</option>
-                                            <option value="60">Phú Yên</option>
-                                            <option value="61">Cần Thơ</option>
-                                            <option value="62">Đà Nẵng</option>
-                                            <option value="63">Hải Phòng</option>
-                                            <option value="64">Hà Nội</option>
-                                            <option value="65">TP HCM</option>
-                                        </select>
-                                    </div>
-                                
-                                <div class="text-center">
-                                <button type="submit" class="btn btn-primary" onclick="IndexForm.submit()" >Tìm kiếm</button>
-                                </div>
-                            </form>
                             </div>
                         </div>
                     </div>
+                    <!-- Phần tìm kiếm -->
+                    <div class="col-lg-4">
+                        <div class="shadow-box p-4">
+                            <!-- Thêm lớp shadow-box -->
+                            <h5>Tìm kiếm</h5>
+                            <form name="IndexForm" method="get" asp-action="Index" asp-controller="SchoolList">
+                                <div class="input-group mx-auto d-flex mb-2">
+                                    <input name="ScNm" type="search" class="form-control p-3" placeholder="-- Tên trường --" aria-describedby="search-icon-1" value="@ViewData["ScNm"]">
+                                </div>
+                                <div class="input-group mx-auto d-flex mb-2">
+                                    <input name="Nm" type="search" class="form-control p-3" placeholder="-- Ngành nghề đào tạo --" aria-describedby="search-icon-1" value="@ViewData["Nm"]">
+                                </div>
+                                <div class="arrow_select mb-2">
+                                    <select class="form-select" name="ScTcd" autocomplete="off" id="ScTcd">
+                                        <option value="">-- Loại trường --</option>
+                                        <option value="DH">Đại học</option>
+                                        <option value="CD">Cao đẳng</option>
+                                    </select>
+                                </div>
+                                <div class="arrow_select mb-2">
+                                    <select class="form-select" name="ScArea" autocomplete="off" id="ScArea">
+                                        <option value="">-- Tỉnh/Thành phố --</option>
+                                        <option value="1">An Giang</option>
+                                        <option value="2">Bà Rịa - Vũng Tàu</option>
+                                        <option value="3">Bắc Giang</option>
+                                        <option value="4">Bắc Kạn</option>
+                                        <option value="5">Bạc Liêu</option>
+                                        <option value="6">Bắc Ninh</option>
+                                        <option value="7">Bến Tre</option>
+                                        <option value="8">Bình Định</option>
+                                        <option value="9">Bình Dương</option>
+                                        <option value="10">Bình Phước</option>
+                                        <option value="11">Bình Thuận</option>
+                                        <option value="12">Cà Mau</option>
+                                        <option value="13">Cao Bằng</option>
+                                        <option value="14">Đắk Lắk</option>
+                                        <option value="15">Đắk Nông</option>
+                                        <option value="16">Điện Biên</option>
+                                        <option value="17">Đồng Nai</option>
+                                        <option value="18">Đồng Tháp</option>
+                                        <option value="20">Gia Lai</option>
+                                        <option value="21">Hà Giang</option>
+                                        <option value="22">Hà Nam</option>
+                                        <option value="23">Hà Tĩnh</option>
+                                        <option value="24">Hải Dương</option>
+                                        <option value="26">Hậu Giang</option>
+                                        <option value="27">Hòa Bình</option>
+                                        <option value="28">Hưng Yên</option>
+                                        <option value="29">Khánh Hòa</option>
+                                        <option value="30">Kiên Giang</option>
+                                        <option value="31">Kon Tum</option>
+                                        <option value="32">Lai Châu</option>
+                                        <option value="33">Lâm Đồng</option>
+                                        <option value="34">Lạng Sơn</option>
+                                        <option value="35">Lào Cai</option>
+                                        <option value="36">Long An</option>
+                                        <option value="37">Nam Định</option>
+                                        <option value="38">Nghệ An</option>
+                                        <option value="39">Ninh Bình</option>
+                                        <option value="40">Ninh Thuận</option>
+                                        <option value="41">Phú Thọ</option>
+                                        <option value="42">Quảng Bình</option>
+                                        <option value="43">Quảng Nam</option>
+                                        <option value="44">Quảng Ngãi</option>
+                                        <option value="45">Quảng Ninh</option>
+                                        <option value="46">Quảng Trị</option>
+                                        <option value="47">Sóc Trăng</option>
+                                        <option value="48">Sơn La</option>
+                                        <option value="49">Tây Ninh</option>
+                                        <option value="50">Thái Bình</option>
+                                        <option value="51">Thái Nguyên</option>
+                                        <option value="52">Thanh Hóa</option>
+                                        <option value="53">Thừa Thiên Huế</option>
+                                        <option value="54">Tiền Giang</option>
+                                        <option value="55">Trà Vinh</option>
+                                        <option value="56">Tuyên Quang</option>
+                                        <option value="57">Vĩnh Long</option>
+                                        <option value="58">Vĩnh Phúc</option>
+                                        <option value="59">Yên Bái</option>
+                                        <option value="60">Phú Yên</option>
+                                        <option value="61">Cần Thơ</option>
+                                        <option value="62">Đà Nẵng</option>
+                                        <option value="63">Hải Phòng</option>
+                                        <option value="64">Hà Nội</option>
+                                        <option value="65">TP HCM</option>
+                                    </select>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary" onclick="IndexForm.submit()">Tìm kiếm</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
+            </div>
+
 
             </div>
         </div>

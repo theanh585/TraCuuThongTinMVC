@@ -4,7 +4,9 @@
     {
         public string scId { get; set; }
         public string scNm { get; set; }
-
+        public string ScArea { get; set; }
+        public int View { get; set; }
+        public string Image { get; set; }
     }
 
     public class SchoolDetail

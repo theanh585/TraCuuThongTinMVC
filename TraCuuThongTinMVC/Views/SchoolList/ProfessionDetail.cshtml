@@ -6,18 +6,27 @@
 
 <div class="container my-5">
     <!-- Tiêu đề chính -->
-    <h1 class="text-center text-primary">Thông tin ngành nghề</h1>
-
-    <!-- Đoạn văn bản thông tin -->
-    <div class="mt-4">
-        <p>
-            @Model.Mota
-        </p>
-    </div>
-    <h1 class="text-center text-primary">Thông giảng viên</h1>
-    <div class="mt-4">
-        <p>
-            @Model.GvCn
-        </p>
+    <div class="row">
+        <!-- Thông Tin Chuyên Ngành -->
+        <div class="col-md-7 shadow-box">
+            <h2 class="text-center text-primary">Thông Tin Chuyên Ngành</h2>
+            <div class="mt-4">
+                <p>@Html.Raw(Model.Mota.Replace("\n", "<br />"))</p>
+            </div>
+        </div>
+        <!-- Giảng Viên Chuyên Ngành -->
+        <div class="col-md-4 shadow-box" style="margin-left: 5px;">
+            <h2 class="text-center text-primary">Giảng Viên Chuyên Ngành</h2>
+            <div class="mt-4">
+                <p>@Html.Raw(Model.GvCn.Replace("\n", "<br />"))</p>
+            </div>
+        </div>
     </div>
 </div>
+
+<style>
+    .container p {
+        word-wrap: break-word;
+    }
+</style>
+

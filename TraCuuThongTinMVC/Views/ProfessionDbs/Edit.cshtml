@@ -11,6 +11,11 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <!-- ID Ngành Nghề -->
+            <div class="form-group mb-1">
+                <input asp-for="Cd" class="form-control" type="hidden" />
+                <span asp-validation-for="Cd" class="text-danger"></span>
+            </div>
             <!-- Tên Ngành Nghề -->
             <div class="form-group mb-1">
                 <label asp-for="Nm" class="control-label">Tên Ngành Nghề</label>
@@ -34,13 +39,14 @@
             <!-- Thông Tin Giảng Viên -->
             <div class="form-group mb-1">
                 <label asp-for="GvCn" class="control-label">Thông Tin Giảng Viên</label>
-                <textarea asp-for="GvCn" class="form-control" rows="3"></textarea>
+                <textarea asp-for="GvCn" class="form-control" rows="3" maxlength="100" id="gvCnInput"></textarea>
+                <small id="charCount" class="form-text text-muted">Còn lại 100 ký tự.</small>
                 <span asp-validation-for="GvCn" class="text-danger"></span>
             </div>
 
             <!-- Nút Submit -->
             <div class="form-group mb-1" style="text-align: right">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Edit" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -53,3 +59,23 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const textarea = document.getElementById("gvCnInput");
+        const charCount = document.getElementById("charCount");
+        const maxLength = 100;
+
+        textarea.addEventListener("input", function () {
+            const remaining = maxLength - textarea.value.length;
+            charCount.textContent = `Còn lại ${remaining} ký tự.`;
+
+            // Đổi màu cảnh báo khi sắp đạt giới hạn
+            if (remaining <= 10) {
+                charCount.style.color = "red";
+            } else {
+                charCount.style.color = "black";
+            }
+        });
+    });
+</script>

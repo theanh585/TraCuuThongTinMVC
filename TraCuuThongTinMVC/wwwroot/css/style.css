@@ -219,7 +219,7 @@
 
 .page-header {
     position: relative;
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(../img/cart-page-header-img.jpg);
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2)), url(../img/banner-edu.jpg);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -493,4 +493,59 @@
 .footer .footer-item p.mb-4 {
     line-height: 35px;
 }
+
+.shadow-box {
+    box-shadow: 0 -4px 8px rgba(0.5, 0.5, 0.5, 0.5), 0 4px 8px rgba(0.5, 0.5, 0.5, 0.5);
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.fruite-categorie li {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.fruite-categorie li:last-child {
+    border-bottom: none;
+}
+
+.fruite-name a {
+    text-decoration: none;
+    color: #007bff;
+    transition: color 0.3s;
+}
+
+.fruite-name a:hover {
+    color: #0056b3;
+}
+<style >
+/* Cố định header */
+.table-header th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #f8f9fa; /* Màu nền header */
+}
+
+/* Đặt chiều rộng bảng */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Cuộn phần nội dung (tbody) */
+tbody {
+    display: block;
+    max-height: 400px; /* Chiều cao tối đa cho bảng */
+    overflow-y: auto;
+    width: 100%;
+}
+
+    thead, tbody tr {
+        display: table;
+        table-layout: fixed;
+        width: 100%;
+    }
+
+</style >
 

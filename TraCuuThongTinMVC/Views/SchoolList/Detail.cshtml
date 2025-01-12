@@ -7,11 +7,11 @@
 <div class="hm-section-wrapper admissions-section">
     <div class="panel-body">
         <!-- Box Section 1 -->
-        <div class="box-section mb-3 text-center">
+        <div class="box-section mb-3 text-center" >
             <h2 class="hm-title-page uk-flex uk-flex-space-between">
                 @if (@Model.Image != null)
                 {
-                    <img src="data:image/png;base64,@Convert.ToBase64String(Model.Image)" alt="Image" class="img-thumbnail" width="200" height="200" />
+                    <img src="data:image/png;base64,@Convert.ToBase64String(Model.Image)" alt="Image" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover; margin-right: 15px;" />
                 }
                 <span>@Model.ScNm</span>
             </h2>
@@ -19,28 +19,39 @@
         </div>
 
         <!-- Box Section 2 -->
-        <div class="box-section mb-3">
-            <div class="d-flex justify-content-between">
+        <div class="box-section mb-3 ">
+            <div class="d-flex justify-content-between align-items-center">
                 <h2 class="hm-title-page">Thông tin chi tiết về trường</h2>
-                <!-- Button to download information -->
-                <form method="post" asp-action="DownloadInformation" asp-controller="SchoolList">
-                    <input type="hidden" name="schoolId" value="@Model.ScId" />
-                    <button type="submit" class="btn btn-primary">Download</button>
-                </form>
+                <div class="d-flex gap-2">
+                    <!-- Button to download Excel -->
+                    <form method="post" asp-action="DownloadInformation" asp-controller="SchoolList">
+                        <input type="hidden" name="schoolId" value="@Model.ScId" />
+                        <button type="submit" class="btn btn-success d-flex align-items-center">
+                            <i class="fas fa-file-excel me-2"></i> Excel
+                        </button>
+                    </form>
+                    <!-- Button to download PDF -->
+                    <form method="post" asp-action="DownloadReport" asp-route-schoolId="@Model.ScId">
+                        <button type="submit" class="btn btn-danger d-flex align-items-center">
+                            <i class="fas fa-file-pdf me-2"></i> PDF
+                        </button>
+                    </form>
+                </div>
             </div>
-            <div class="hm-panel-body">
-                <div class="table-container" style="max-height: 300px; overflow-y: auto;">
+
+            <div class="hm-panel-body shadow-box">
+                <div class="table-container">
                     <table class="table table-bordered">
-                        <thead>
+                        <thead class="table-header">
                             <tr>
                                 <th>Tiêu đề</th>
                                 <th>Thông Tin</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody style="max-height: 300px;">
                             <tr>
-                                <td>Mã trường</td>
-                                <td>@Model.ScId</td>
+                                <td>Khu vực</td>
+                                <td>@Model.ScArea</td>
                             </tr>
                             <tr>
                                 <td>Địa chỉ chính</td>
@@ -88,14 +99,14 @@
         <div class="box-section mb-3">
             <h2 class="hm-title-page">Các ngành đào tạo</h2>
             <div class="hm-panel-body">
-                <div class="table-container" style="max-height: 300px; overflow-y: auto;">
+                <div class="table-container shadow-box" style="max-height: 300px; overflow-y: auto;">
                     <table class="table table-bordered">
-                        <thead>
+                        <thead class="table-header">
                             <tr>
                                 <th>Chuyên Ngành</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody style="max-height: 400px;">
                             @foreach (var item in Model.profList)
                             {
                                 <tr>

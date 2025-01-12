@@ -24,13 +24,17 @@ namespace TraCuuThongTinMVC.Controllers
                 return RedirectToAction("Login", "Admin");
             }
 
-            ViewBag.Username = username;
+            ViewBag.Username = User.Identity.Name;
             return View();
         }
 
         // Trang đăng nhập (GET)
         public IActionResult Login()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "InfSches");
+            }
             return View();
         }
 
@@ -59,12 +63,9 @@ namespace TraCuuThongTinMVC.Controllers
         }
 
         // Xử lý đăng xuất
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
-            // Xóa toàn bộ dữ liệu session
-            HttpContext.Session.Clear();
-
-            // Quay về trang đăng nhập
+            await HttpContext.SignOutAsync("CookieAuth");
             return RedirectToAction("Login");
         }
     }

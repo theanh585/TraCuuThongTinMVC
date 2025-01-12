@@ -19,7 +19,7 @@
         @foreach (var item in Model)
         {
             <div class="col-12 mb-3">
-                <div class="card">
+                <div class="card shadow-box">
                     <div class="card-header bg-success text-white d-flex justify-content-between">
                         <span><strong>Tên Trường:</strong> @Html.DisplayFor(modelItem => item.ScNm)</span>
                         <div>
@@ -46,7 +46,7 @@
                                 <strong>Hình Ảnh:</strong>
                                 @if (item.Image != null && item.Image.Length > 0)
                                 {
-                                    <img src="data:image/png;base64,@Convert.ToBase64String(item.Image)" alt="Image" class="img-thumbnail" width="100" height="100" />
+                                    <img src="data:image/png;base64,@Convert.ToBase64String(item.Image)" alt="Image" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover; margin-right: 15px;" />
                                 }
                                 else
                                 {
