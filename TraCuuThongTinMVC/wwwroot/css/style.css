@@ -219,21 +219,19 @@
 
 .page-header {
     position: relative;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2)), url(../img/banner-edu.jpg);
-    background-position: center center;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0)), url(../img/banner-edu-red.png);
+    background-position: top center;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 @media (min-width: 992px) {
-    .hero-header,
     .page-header {
-        margin-top: 152px !important;
+        margin-top: 100px !important;
     }
 }
 
 @media (max-width: 992px) {
-    .hero-header,
     .page-header {
         margin-top: 97px !important;
     }
@@ -464,14 +462,14 @@
     border: 1px solid var(--bs-secondary);
     margin: 0 4px;
 }
+
+    .pagination a.active {
+        background-color: #cd2121;
+        color: var(--bs-light);
+        border: 1px solid var(--bs-secondary);
+    }
   
-.pagination a.active {
-    background-color: var(--bs-primary);
-    color: var(--bs-light);
-    border: 1px solid var(--bs-secondary);
-}
-  
-.pagination a:hover:not(.active) {background-color: var(--bs-primary)}
+.pagination a:hover:not(.active) {background-color: #cd2121}
 
 .nav.nav-tabs .nav-link.active {
     border-bottom: 2px solid var(--bs-secondary) !important;
@@ -546,6 +544,7 @@ tbody {
         table-layout: fixed;
         width: 100%;
     }
+
 
 </style >
 

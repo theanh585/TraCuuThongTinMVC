@@ -28,33 +28,44 @@
                             <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.ScId">Delete</a>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-6"><strong>Khu Vực:</strong> @Html.DisplayFor(modelItem => item.ScArea)</div>
-                            <div class="col-6"><strong>Địa Chỉ:</strong> @Html.DisplayFor(modelItem => item.ScAddress)</div>
-                            <div class="col-6"><strong>Địa chỉ cơ sở:</strong> @Html.DisplayFor(modelItem => item.ScAddress1)</div>
-                            <div class="col-6"><strong>Loại Trường:</strong> @Html.DisplayFor(modelItem => item.ScTcd)</div>
-                            <div class="col-6"><strong>TEL:</strong> @Html.DisplayFor(modelItem => item.Tel)</div>
-                            <div class="col-6"><strong>FAX:</strong> @Html.DisplayFor(modelItem => item.Fax)</div>
-                            <div class="col-6"><strong>View:</strong> @Html.DisplayFor(modelItem => item.Count)</div>
-                            <div class="col-6"><strong>Mail:</strong> @Html.DisplayFor(modelItem => item.Mail)</div>
-                            <div class="col-6"><strong>Website:</strong> @Html.DisplayFor(modelItem => item.Website)</div>
-                            <div class="col-6"><strong>Hiệu Trưởng:</strong> @Html.DisplayFor(modelItem => item.HiuTruong)</div>
-                            <div class="col-6"><strong>Hiệu Phó:</strong> @Html.DisplayFor(modelItem => item.HiuPho)</div>
-                            <div class="col-6"><strong>Người Chịu Trách Nhiệm PL:</strong> @Html.DisplayFor(modelItem => item.NguoiChiuTrachNhiemPhapLuat)</div>
-                            <div class="col-6">
-                                <strong>Hình Ảnh:</strong>
-                                @if (item.Image != null && item.Image.Length > 0)
-                                {
-                                    <img src="data:image/png;base64,@Convert.ToBase64String(item.Image)" alt="Image" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover; margin-right: 15px;" />
-                                }
-                                else
-                                {
-                                    <p>Không có hình ảnh</p>
-                                }
-                            </div>
-                        </div>
-                    </div>
+                    <div class="card-body d-flex">
+    <!-- Hình ảnh bên trái -->
+    <div class="me-3">
+            @if (item.Image != null && item.Image.Length > 0)
+            {
+                <img src="data:image/png;base64,@Convert.ToBase64String(item.Image)"
+                        alt="Image"
+                        class="img-thumbnail"
+                        style="width: 300px; height: 300px; object-fit: cover;" />
+            }
+            else
+            {
+                <div class="img-thumbnail d-flex align-items-center justify-content-center"
+                        style="width: 300px; height: 300px; background-color: #f0f0f0; border: 1px solid #ddd;">
+                    <span class="text-muted">Không có hình ảnh</span>
+                </div>
+            }
+    </div>
+
+    <!-- Thông tin trường hiển thị trên 1 cột -->
+    <div class="flex-grow-1">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>Khu Vực:</strong> @Html.DisplayFor(modelItem => item.ScArea)</li>
+            <li class="list-group-item"><strong>Địa Chỉ:</strong> @Html.DisplayFor(modelItem => item.ScAddress)</li>
+            <li class="list-group-item"><strong>Địa chỉ cơ sở:</strong> @Html.DisplayFor(modelItem => item.ScAddress1)</li>
+            <li class="list-group-item"><strong>Loại Trường:</strong> @Html.DisplayFor(modelItem => item.ScTcd)</li>
+            <li class="list-group-item"><strong>TEL:</strong> @Html.DisplayFor(modelItem => item.Tel)</li>
+            <li class="list-group-item"><strong>FAX:</strong> @Html.DisplayFor(modelItem => item.Fax)</li>
+            <li class="list-group-item"><strong>View:</strong> @Html.DisplayFor(modelItem => item.Count)</li>
+            <li class="list-group-item"><strong>Mail:</strong> @Html.DisplayFor(modelItem => item.Mail)</li>
+            <li class="list-group-item"><strong>Website:</strong> @Html.DisplayFor(modelItem => item.Website)</li>
+            <li class="list-group-item"><strong>Hiệu Trưởng:</strong> @Html.DisplayFor(modelItem => item.HiuTruong)</li>
+            <li class="list-group-item"><strong>Hiệu Phó:</strong> @Html.DisplayFor(modelItem => item.HiuPho)</li>
+            <li class="list-group-item"><strong>Người Chịu Trách Nhiệm PL:</strong> @Html.DisplayFor(modelItem => item.NguoiChiuTrachNhiemPhapLuat)</li>
+        </ul>
+    </div>
+</div>
+
                 </div>
             </div>
         }

@@ -51,7 +51,7 @@ namespace TraCuuThongTinMVC.Controllers
                 schoolList = schoolList.Where(p => professionList.Contains(p.ScId));
             }
 
-            int pageSize = 5;
+            int pageSize = 6;
             int pageNumber = page ?? 1;
             var pagedResult = schoolList
             .Skip((pageNumber - 1) * pageSize) // Bỏ qua số lượng item đã được phân trang

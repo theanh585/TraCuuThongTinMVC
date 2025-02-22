@@ -4,75 +4,78 @@
     ViewData["Title"] = "Report";
     Layout = "_SchoolList";
 }
+
 <h1>Báo Cáo Thống Kê</h1>
 
-<!-- Báo cáo các trường được tìm kiếm nhiều nhất -->
-<div class="box-section mb-3">
-    <h2 class="hm-title-page">Các Trường Được Tìm Kiếm Nhiều Nhất</h2>
-    <table class="table table-striped shadow-box" id="reportTable">
-        <thead>
-            <tr>
-                <th>Tên Trường</th>
-                <th>View</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var school in Model.MostSearchedSchools)
-            {
-                <tr>
-                    <td>@school.SchoolNm</td>
-                    <td>@school.SearchCount</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+<div class="container">
+    <div class="row">
+        <!-- Báo cáo các trường được tìm kiếm nhiều nhất -->
+        <div class="col-md-6">
+            <div class="box-section mb-3">
+                <h2 class="hm-title-page">Trường Hot</h2>
+                <table class="table table-striped shadow-box">
+                    <thead>
+                        <tr>
+                            <th>Tên Trường</th>
+                            <th>View</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var school in Model.MostSearchedSchools)
+                        {
+                            <tr>
+                                <td>@school.SchoolNm</td>
+                                <td>@school.SearchCount</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-<!-- Báo cáo các chuyên ngành được tìm kiếm nhiều nhất -->
-<div class="box-section mb-3">
-    <h2 class="hm-title-page">Các Chuyên Ngành Được Tìm Kiếm Nhiều Nhất</h2>
-    <table class="table table-striped shadow-box">
-        <thead>
-            <tr>
-                <th>Tên Chuyên Ngành</th>
-                <th>View</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var profession in Model.MostSearchedProfessions)
-            {
-                <tr>
-                    <td>
-                        <a href="javascript:void(0);"
-                           onclick="loadSchools('@profession.ProfessionNm')">
-                            @profession.ProfessionNm
-                        </a>
-                    </td>
-                    <td>@profession.SearchCount</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+        <!-- Báo cáo các chuyên ngành được tìm kiếm nhiều nhất -->
+        <div class="col-md-6">
+            <div class="box-section mb-3">
+                <h2 class="hm-title-page">Chuyên Ngành Hot</h2>
+                <table class="table table-striped shadow-box">
+                    <thead>
+                        <tr>
+                            <th>Tên Chuyên Ngành</th>
+                            <th>View</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var profession in Model.MostSearchedProfessions)
+                        {
+                            <tr>
+                                <td>
+                                    <a href="javascript:void(0);"
+                                       onclick="loadSchools('@profession.ProfessionNm')">
+                                        @profession.ProfessionNm
+                                    </a>
+                                </td>
+                                <td>@profession.SearchCount</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
-    <!-- Bảng hiển thị danh sách các trường -->
-    <div id="schoolListContainer" style="display: none; margin-top: 20px;">
-        <h3>Danh Sách Các Trường Với Chuyên Ngành: <span id="selectedProfession"></span></h3>
-        <table class="table table-striped shadow-box">
-            <thead>
-                <tr>
-                    <th>Tên Trường</th>
-                    <th>View</th>
-                </tr>
-            </thead>
-            <tbody id="schoolListBody">
-                <!-- Nội dung sẽ được thêm bằng JavaScript -->
-            </tbody>
-        </table>
+    <!-- Biểu đồ cột hiển thị danh sách các trường -->
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="box-section">
+                <h2 class="hm-title-page">Danh Sách Các Trường Với Chuyên Ngành: <span id="selectedProfession"></span></h2>
+                <canvas id="schoolChart"></canvas>
+            </div>
+        </div>
     </div>
 </div>
 
-
 @section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         function loadSchools(professionNm) {
             // Gửi yêu cầu AJAX đến server để lấy danh sách các trường
@@ -81,24 +84,44 @@
                 type: 'GET',
                 data: { professionNm: professionNm },
                 success: function (data) {
-                    // Hiển thị tên chuyên ngành đã chọn
                     $('#selectedProfession').text(professionNm);
 
-                    // Xóa nội dung cũ trong bảng
-                    $('#schoolListBody').empty();
+                    // Chuẩn bị dữ liệu cho biểu đồ
+                    var schoolLabels = data.map(s => s.schoolNm);
+                    var searchCounts = data.map(s => s.searchCount);
 
-                    // Thêm các dòng mới vào bảng
-                    data.forEach(function (school) {
-                        $('#schoolListBody').append(`
-                            <tr>
-                                <td>${school.schoolNm}</td>
-                                <td>${school.searchCount}</td>
-                            </tr>
-                        `);
+                    var ctx = document.getElementById("schoolChart").getContext("2d");
+
+                    // Xóa biểu đồ cũ nếu có
+                    if (window.schoolChartInstance) {
+                        window.schoolChartInstance.destroy();
+                    }
+
+                    // Tạo biểu đồ mới
+                    window.schoolChartInstance = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: schoolLabels,
+                            datasets: [{
+                                label: 'Lượt tìm kiếm',
+                                data: searchCounts,
+                                backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                                borderColor: 'rgba(255, 99, 132, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        stepSize: 1 // Chỉ hiển thị số nguyên
+                                    }
+                                }
+                            }
+                        }
                     });
-
-                    // Hiển thị bảng
-                    $('#schoolListContainer').show();
                 },
                 error: function () {
                     alert('Đã xảy ra lỗi khi tải danh sách các trường.');
@@ -107,4 +130,3 @@
         }
     </script>
 }
-

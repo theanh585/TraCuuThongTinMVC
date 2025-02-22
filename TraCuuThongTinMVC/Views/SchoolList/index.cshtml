@@ -5,8 +5,8 @@
 	ViewData["Title"] = "Index";
     Layout = "_SchoolList";
 }
-    <div class="container-fluid fruite py-5">
-        <div class="container py-5">
+    <div class="container-fluid fruite">
+        <div class="container">
             <div class="row g-4">
             <div class="col-lg-12">
                 <div class="row g-3">
@@ -16,63 +16,65 @@
                 </div>
                 <div class="row g-6">
                     <!-- Danh sách Trường học -->
-                    <div class="col-lg-8">
-                        <div class="row g-4">
-                            <div class="col-lg-12">
-                                <div class="shadow-box p-4 mb-4">
-                                    <h4>Danh sách Trường học</h4>
-                                    <ul class="list-unstyled fruite-categorie">
-                                        @foreach (var item in Model)
-                                        {
-                                            <li class="mb-3">
-                                                <div class="d-flex align-items-center">
-                                                    <!-- Hiển thị hình ảnh -->
-                                                    <img src="data:image/jpeg;base64,@item.Image" style="width: 80px; height: 80px; object-fit: cover; margin-right: 15px;">
+                        <div class="col-lg-8">
+                            <div class="row g-4">
+                                <div class="col-lg-12">
+                                    <div class="shadow-box p-4 mb-4">
+                                        <h4>Danh sách Trường học</h4>
+                                        <div class="row">
+                                            @foreach (var item in Model.Select((value, index) => new { value, index }))
+                                            {
+                                                if (item.index % 3 == 0)
+                                                {
+                                                    @:</div><div class="row">
+                                                }
 
-                                                    <div>
-                                                        <a asp-action="Detail" asp-controller="SchoolList" asp-route-id="@item.scId" class="fs-5 fw-bold">
-                                                            <i class="fas bi bi-award-fill me-2"></i>@item.scNm
-                                                        </a>
-                                                        <div class="text-muted fs-6">Khu vực: @item.ScArea</div>
-                                                        <div class="text-muted fs-6">View: @item.View</div>
+                                                <div class="col-lg-4">
+                                                    <div class="card shadow-sm p-3 mb-3">
+                                                        <img src="data:image/jpeg;base64,@item.value.Image" class="card-img-top" style="width: 100%; height: 150px; object-fit: cover;">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">
+                                                                <a asp-action="Detail" asp-controller="SchoolList" asp-route-id="@item.value.scId" class="fs-5 fw-bold">
+                                                                    <i class="fas bi bi-award-fill me-2"></i>@item.value.scNm
+                                                                </a>
+                                                            </h5>
+                                                            <p class="card-text text-muted fs-6">Khu vực: @item.value.ScArea</p>
+                                                            <p class="card-text text-muted fs-6">View: @item.value.View</p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </li>
-                                        }
-                                    </ul>
-
-                                    <!-- Thêm phân trang -->
-                                    <div class="mt-4">
-                                        <ul class="pagination justify-content-center d-flex">
-                                            @if (ViewData["CurrentPage"] != null && (int)ViewData["CurrentPage"] > 1)
-                                            {
-                                                <li class="page-item">
-                                                    <a class="page-link" href="@Url.Action("Index", new { page = (int)ViewData["CurrentPage"] - 1, ScNm = ViewData["ScNm"], Nm = ViewData["Nm"], ScTcd = ViewData["ScTcd"], ScArea = ViewData["ScArea"] })">«</a>
-                                                </li>
                                             }
+                                        </div>
+                                        <!-- Pagination -->
+                                        <div class="mt-4">
+                                            <ul class="pagination justify-content-center d-flex">
+                                                @if (ViewData["CurrentPage"] != null && (int)ViewData["CurrentPage"] > 1)
+                                                {
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="@Url.Action("Index", new { page = (int)ViewData["CurrentPage"] - 1, ScNm = ViewData["ScNm"], Nm = ViewData["Nm"], ScTcd = ViewData["ScTcd"], ScArea = ViewData["ScArea"] })">«</a>
+                                                    </li>
+                                                }
 
-                                            @for (var i = 1; i <= (int)(ViewData["TotalPages"] ?? 1); i++)
-                                            {
-                                                <li class="page-item @(i == (int)(ViewData["CurrentPage"] ?? 1) ? "active" : "")">
-                                                    <a class="page-link" href="@Url.Action("Index", new { page = i, ScNm = ViewData["ScNm"], Nm = ViewData["Nm"], ScTcd = ViewData["ScTcd"], ScArea = ViewData["ScArea"] })">@i</a>
-                                                </li>
-                                            }
+                                                @for (var i = 1; i <= (int)(ViewData["TotalPages"] ?? 1); i++)
+                                                {
+                                                    <li class="page-item @(i == (int)(ViewData["CurrentPage"] ?? 1) ? "active" : "")">
+                                                        <a class="page-link" href="@Url.Action("Index", new { page = i, ScNm = ViewData["ScNm"], Nm = ViewData["Nm"], ScTcd = ViewData["ScTcd"], ScArea = ViewData["ScArea"] })">@i</a>
+                                                    </li>
+                                                }
 
-                                            @if (ViewData["CurrentPage"] != null && (int)ViewData["CurrentPage"] < (int)(ViewData["TotalPages"] ?? 1))
-                                            {
-                                                <li class="page-item">
-                                                    <a class="page-link" href="@Url.Action("Index", new { page = (int)ViewData["CurrentPage"] + 1, ScNm = ViewData["ScNm"], Nm = ViewData["Nm"], ScTcd = ViewData["ScTcd"], ScArea = ViewData["ScArea"] })">»</a>
-                                                </li>
-                                            }
-                                        </ul>
+                                                @if (ViewData["CurrentPage"] != null && (int)ViewData["CurrentPage"] < (int)(ViewData["TotalPages"] ?? 1))
+                                                {
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="@Url.Action("Index", new { page = (int)ViewData["CurrentPage"] + 1, ScNm = ViewData["ScNm"], Nm = ViewData["Nm"], ScTcd = ViewData["ScTcd"], ScArea = ViewData["ScArea"] })">»</a>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </div>
                                     </div>
-
-
-
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        </div>    
+
                     <!-- Phần tìm kiếm -->
                     <div class="col-lg-4">
                         <div class="shadow-box p-4">
